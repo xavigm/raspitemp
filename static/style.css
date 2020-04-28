@@ -1,4 +1,13 @@
 body {
-	   background: blue;
-	      color: yellow;
+	   background: black;
       }
+.button {
+color:white;
+font-size: 18px;
+}
+
+.number {
+font-size: 47px;
+color: white;
+text-align: center;
+}	
