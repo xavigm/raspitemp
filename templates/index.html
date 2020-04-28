@@ -2,6 +2,13 @@
    <head>
       <title>Raspitemp</title>
       <link rel="stylesheet" href="../static/style.css/">
+
+          <!-- Compiled and minified CSS -->
+	      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+	          <!-- Compiled and minified JavaScript -->
+		      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		                  
    </head>
    <body>
       <h1>Hello, World!</h1>
@@ -10,9 +17,9 @@
       <h2>The temperature set is: {{ temp }}</h2>
       <h2>The temperature submited is: {{ inputtemp }}</h2>
 
-      <form action="/signup" method="post">
-	        <input type="text" name="inputtemp"></input>
-		  <input type="submit" value="Signup"></input>
+      <form action="input" method="post">
+	        <input type="number" name="inputtemp"></input>
+		  <input type="submit" value="input"></input>
       </form>
 
    </body>
