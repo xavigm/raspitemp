@@ -1,26 +1,44 @@
 <!DOCTYPE html>
-   <head>
-      <title>Raspitemp</title>
-      <link rel="stylesheet" href="../static/style.css/">
+<html>
+<title>RaspiTemp</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  background-image: url('https://www.hdwallpapers.in/thumbs/2020/matterhorn_mountain_4k-t2.jpg');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+</style>
+<body>
 
-          <!-- Compiled and minified CSS -->
-	      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-	          <!-- Compiled and minified JavaScript -->
-		      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		                  
-   </head>
-   <body>
-      <h1>Hello, World!</h1>
-      <h2>The date and time on the server is: {{ time }}</h2>
-      <h2>The ambient temperature is: {{ temp_actual }}</h2>
-      <h2>The temperature set is: {{ temp }}</h2>
-      <h2>The temperature submited is: {{ inputtemp }}</h2>
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+    Logo
+  </div>
+  <div class="w3-display-middle">
+    <h1 class="w3-jumbo w3-animate-top">Raspi Temp</h1>
+      <h2>{{ time }}</h2>
+      <h2>ambient temperature: {{ temp_actual }}</h2>
+      <h2>set temperature:{{ temp }}</h2>
 
       <form action="input" method="post">
 	        <input type="number" name="inputtemp"></input>
 		  <input type="submit" value="input"></input>
       </form>
 
-   </body>
+    <hr class="w3-border-grey" style="margin:auto;width:40%">
+    <p class="w3-large w3-center">35 days left</p>
+  </div>
+  <div class="w3-display-bottomleft w3-padding-large">
+  </div>
+</div>
+
+</body>
 </html>
+
