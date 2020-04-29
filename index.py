@@ -10,12 +10,76 @@ import datetime
 import sys
 import Adafruit_DHT
 import sqlite3
+import RPi.GPIO as GPIO
+import time
+import threading
+
+#GPIO DEL RELE O LED
+led = 16
 
 sensor = 11
 pin = 4
 # Try to grab a sensor reading.  Use the read_retry method which will retry up
 # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
 humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+
+#set estado_general
+global estado_general 
+estado_general = 1
+
+#set gpio inicial 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(led, GPIO.OUT)
+
+def background():
+
+   humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+   temperature_now = temperature
+
+
+   while True:
+      #obtenemos valor guardado
+      con_bd = sqlite3.connect('temp.db')
+      cursor_temp = con_bd.cursor()
+      cursor_temp.execute("SELECT * FROM temp")
+      registro = cursor_temp.fetchone()
+      temp = (registro[0])
+      cursor_temp.close()
+      
+      #obtenemos valor actual del sensor
+      humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+      temperature_back =  temperature_now
+      temperature_now = temperature
+      max = int(temperature_back) +5
+      min = int(temperature_back) -5
+      if int(temperature) > max:
+         temperature_now = temperature_back
+      if int(temperature) < min:
+         temperature_now = temperature_back
+      print ("temperatura actual:")
+      print (temperature_now)
+      print ("temperatura bbdd:")
+      print (temp)
+      print ("Estado general:")
+      print (estado_general)
+      #comparamos temperaturas y si el boton general esta activado   
+      if int(temperature_now) <  int(temp):
+          if estado_general == 1:
+              GPIO.output(led, GPIO.HIGH)
+              print ("enciendo rele")
+      else:
+         GPIO.output(led, GPIO.LOW)
+         print ("apago rele")
+
+      time.sleep( 20 )
+
+
+
+#arrancamos el bucle
+#thread.start_new_thread(background, ());
+
+x = threading.Thread(target=background, args=())
+x.start()
 
 
 app = Flask(__name__)
