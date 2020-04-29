@@ -3,85 +3,93 @@
 <title>RaspiTemp</title>
 <meta charset="UTF-8">
 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="../static/style.css">
 <style>
-body,h1 {font-family: "Raleway", sans-serif}
-body, html {height: 100%}
-.bgimg {
-  background-image: url('https://media.idownloadblog.com/wp-content/uploads/2019/05/Glacier_Falls_-_MacBook_Pro_Wallpaper.jpg');
-  min-height: 100%;
-  background-position: center;
-  background-size: cover;
-}
+  body,
+  h1 {
+    font-family: "Raleway", sans-serif
+  }
+
+  body,
+  html {
+    height: 100%
+  }
+
+  .bgimg {
+    background-image: url('https://media.idownloadblog.com/wp-content/uploads/2019/05/Glacier_Falls_-_MacBook_Pro_Wallpaper.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
 </style>
+
 <body>
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-  <div class="w3-display-topleft w3-padding-large w3-xlarge">
-	  <img src="https://blog.xavigonzalez.net/wp-content/uploads/2018/07/logo2015_gr.png" width="50%">
-  </div>
-  <div class="w3-display-middle">
-	  <center>	  
-    <h1 class="w3-jumbo w3-animate-top">smartrpi</h1>
-    <h5>{{ time }}</h5>
-
-<div class="row">
-    <div class="col s12 m5">
-      <div class="card-panel teal" style="background-color:red !important;">
-        <span class="white-text">Estado actual</span>
-        <span class="white-text" style="font-size:24px;">APAGADA
-        </span>
-      </div>
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge">
+      <img src="https://blog.xavigonzalez.net/wp-content/uploads/2018/07/logo2015_gr.png" width="50%">
     </div>
-    <div class="col s12 m5">
-      <div class="card-panel teal" style="background-color:#1398f7 !important;">
-        <span class="white-text">Temperatura actual</span>
-        <span class="white-text" style="font-size:32px;">{{ temp_actual  }}
-        </span>
-      </div>
+    <div class="w3-display-middle">
+      <center>
+        <h1 class="w3-jumbo w3-animate-top">smartrpi</h1>
+        <h5>{{ time }}</h5>
+
+        <div class="row">
+          <div class="col s12 m5">
+            <div class="card-panel teal" style="background-color:red !important;">
+              <span class="white-text">Estado actual</span>
+              <span class="white-text" style="font-size:24px;">APAGADA
+              </span>
+            </div>
+          </div>
+          <div class="col s12 m5">
+            <div class="card-panel teal" style="background-color:#1398f7 !important;">
+              <span class="white-text">Temperatura actual</span>
+              <span class="white-text" style="font-size:32px;">{{ temp_actual  }}
+              </span>
+            </div>
+          </div>
+          <div class="col s12 m5">
+            <div class="card-panel teal" style="background-color:#1398f7 !important;">
+              <span class="white-text">Temperatura guardada</span>
+              <form action="input" method="post">
+                <input type="number" name="inputtemp" class="number" placeholder={{ temp }}></input><br>
+                <input type="submit" value="Guardar" class="waves-effect waves-light btn-large button"> </input>
+              </form>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Switch -->
+        <p class="w3-large w3-center">INTERRUPTOR GENERAL</p>
+        <div class="switch">
+          <label>
+            Off
+            <input type="checkbox">
+            <span class="lever"></span>
+            On
+          </label>
+        </div>
+        <br>
+
+
+
+      </center>
     </div>
-     <div class="col s12 m5">
-      <div class="card-panel teal" style="background-color:#1398f7 !important;">
-        <span class="white-text">Temperatura guardada</span>
-        <span class="white-text" style="font-size:32px;">{{ temp }}
-        </span>
-      </div>
+
+    <div class="w3-display-bottomleft w3-padding-large">
     </div>
   </div>
-         
-
-      <form action="input" method="post">
-	      <input type="number" name="inputtemp" class="number"></input><br>
-	      <input type="submit" value="Guardar" class="waves-effect waves-light btn-large button">
-
-	      </input>
-
-  <!-- Switch -->
-    <p class="w3-large w3-center">INTERRUPTOR GENERAL</p>
-  <div class="switch">
-    <label>
-      Off
-      <input type="checkbox">
-      <span class="lever"></span>
-      On
-    </label>
-  </div>
-      </form>
-	</center>
-  </div>
-	 
-  <div class="w3-display-bottomleft w3-padding-large">
-  </div>
-</div>
 </body>
-</html>
 
+</html>

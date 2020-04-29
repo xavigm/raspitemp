@@ -4,10 +4,11 @@ body {
 .button {
 color:white;
 font-size: 18px;
+background-color: #bbbbbb !important;
 }
 
 .number {
-font-size: 47px;
+font-size: 30px !important;
 color: white;
 text-align: center;
 }	
