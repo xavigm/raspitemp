@@ -45,9 +45,9 @@
 
         <div class="row">
           <div class="col s12 m5">
-            <div class="card-panel teal" style="background-color:red !important;">
+            <div class="card-panel teal" style="background-color:{{ color }} !important;>
               <span class="white-text">Estado actual</span>
-              <span class="white-text" style="font-size:24px;">APAGADA
+              <span class="white-text" style="font-size:24px;">{{ estado }}
               </span>
             </div>
           </div>
@@ -63,6 +63,16 @@
               <span class="white-text">Temperatura guardada</span>
               <form action="input" method="post">
                 <input type="number" name="inputtemp" class="number" placeholder={{ temp }}></input><br>
+                <!-- Switch -->
+                <p class="w3-large w3-center">INTERRUPTOR GENERAL</p>
+                <div class="switch">
+                  <label>
+                    Off
+                    <input name="estado" type="checkbox" {{ checked }}>
+                    <span class="lever"></span>
+                    On
+                  </label>
+                </div>
                 <input type="submit" value="Guardar" class="waves-effect waves-light btn-large button"> </input>
               </form>
               </span>
@@ -70,16 +80,6 @@
           </div>
         </div>
 
-        <!-- Switch -->
-        <p class="w3-large w3-center">INTERRUPTOR GENERAL</p>
-        <div class="switch">
-          <label>
-            Off
-            <input type="checkbox">
-            <span class="lever"></span>
-            On
-          </label>
-        </div>
         <br>
 
 

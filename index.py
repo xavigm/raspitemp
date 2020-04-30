@@ -24,12 +24,13 @@ pin = 4
 humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 
 #set estado_general
-global estado_general 
-estado_general = 1
+try: estado_general
+except NameError: estado_general = "init"
 
 #set gpio inicial 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(led, GPIO.OUT)
+
 
 def background():
 
@@ -38,6 +39,9 @@ def background():
 
 
    while True:
+      global estado_general
+      try: estado_general
+      except NameError: estado_general = "off"
       #obtenemos valor guardado
       con_bd = sqlite3.connect('temp.db')
       cursor_temp = con_bd.cursor()
@@ -45,7 +49,7 @@ def background():
       registro = cursor_temp.fetchone()
       temp = (registro[0])
       cursor_temp.close()
-      
+
       #obtenemos valor actual del sensor
       humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
       temperature_back =  temperature_now
@@ -64,9 +68,12 @@ def background():
       print (estado_general)
       #comparamos temperaturas y si el boton general esta activado   
       if int(temperature_now) <  int(temp):
-          if estado_general == 1:
+          if estado_general == "on":
               GPIO.output(led, GPIO.HIGH)
               print ("enciendo rele")
+          else:
+               GPIO.output(led, GPIO.LOW)
+               print ("apago rele")           
       else:
          GPIO.output(led, GPIO.LOW)
          print ("apago rele")
@@ -85,7 +92,16 @@ x.start()
 app = Flask(__name__)
 @app.route("/")
 def hello():
+   
+   color = "red"
+   checked = ""
+   estado = "Apagado"
 
+   global estado_general
+   if estado_general == "on":
+      checked = "checked"
+      estado = "Encendido"
+      color = "green"
    #Set initial temp value
    con_bd = sqlite3.connect('temp.db')
    cursor_temp = con_bd.cursor()
@@ -102,11 +118,18 @@ def hello():
       'time': timeString,
       'temp_actual': temperature,
       'temp' : temp,
+      'checked' : checked,
+      'color' : color,
+      'estado' : estado
       }
    return render_template('index.html', **templateData)
 
 @app.route('/input', methods = ['POST'])
 def input():
+        global estado_general
+        estado_general = request.form['estado']
+        print("input estado:")
+        print(estado_general)
         inputtemp = request.form['inputtemp']
         #Set temp value
         con_bd = sqlite3.connect('temp.db')
