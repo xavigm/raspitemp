@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="../static/style.css">
+<link rel="stylesheet" href="/static/style.css">
 <style>
   body,
   h1 {
@@ -36,17 +36,20 @@
 <body>
   <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
     <div class="w3-display-topleft w3-padding-large w3-xlarge">
-      <img src="https://blog.xavigonzalez.net/wp-content/uploads/2018/07/logo2015_gr.png" width="50%">
+
     </div>
     <div class="w3-display-middle">
       <center>
-        <h1 class="w3-jumbo w3-animate-top">smartrpi</h1>
-        <h5>{{ time }}</h5>
+        <hr>
+        <h1 class="w3-jumbo w3-animate-top"> </h1>
+        <img src="/static/smarttemp.png" class="logo" style="width:350px">
+
+        <p>{{ time }}</p>
 
         <div class="row">
           <div class="col s12 m5">
             <div class="card-panel teal" style="background-color:{{ color }} !important;>
-              <span class="white-text">Estado actual</span>
+              <span class=" white-text">Estado actual</span>
               <span class="white-text" style="font-size:24px;">{{ estado }}
               </span>
             </div>
@@ -62,37 +65,51 @@
             <div class="card-panel teal" style="background-color:#1398f7 !important;">
               <span class="white-text">Temperatura guardada</span>
               <form action="input" method="POST">
-                <input type="number" name="inputtemp" class="number" placeholder={{ temp }} required></input><br>
+                <input type="number" class="number" placeholder={{ temp }} id="textInput" disabled></input><br>
+                <label for="vol" style="color:white;">Nueva Temperatura</label>
+                <!-- range-->
+                <input type="range" value={{ temp }} name="inputtemp" min="10" max="30"
+                  onchange="updateTextInput(this.value);">
                 <!-- Switch -->
                 <p class="w3-large w3-center">INTERRUPTOR GENERAL</p>
                 <div class="switch">
-                  <label>
-                    Off
+                  <label style="color:white;">
+                    OFF
                     <input name="estado" type="checkbox" {{ checked }}>
                     <span class="lever"></span>
-                    On
+                    ON
                   </label>
-
+                  <br>
                 </div>
+                </span>
+                <hr>
                 <input type="submit" value="Guardar" class="waves-effect waves-light btn-large button"> </input>
                 <input type='hidden' name="estado" value="off">
-
               </form>
-              </span>
+
+
+              <!--############### -->
+
+
+              <!--#############-->
             </div>
           </div>
         </div>
 
         <br>
-
-
-
       </center>
     </div>
+
+
 
     <div class="w3-display-bottomleft w3-padding-large">
     </div>
   </div>
 </body>
+<script>
+  function updateTextInput(val) {
+    document.getElementById('textInput').value = val;
+  }
+</script>
 
 </html>

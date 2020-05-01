@@ -1,5 +1,5 @@
 body {
-	   background: black;
+background: black;
       }
 .button {
 color:white;
@@ -12,3 +12,15 @@ font-size: 30px !important;
 color: white;
 text-align: center;
 }	
+
+.logo {
+width:90%;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+      background-color: green !important; 
+  }
+  
+  .switch label input[type=checkbox]:checked+.lever {
+      background-color: #6dce55;
+  }

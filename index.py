@@ -101,7 +101,7 @@ x = threading.Thread(target=background, args=())
 x.start()
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 @app.route("/")
 def hello():
 
@@ -163,6 +163,8 @@ def hello():
 def input():
 
       inputtemp = request.form['inputtemp']
+      print("AQUI INPUTTEMP")
+      print(inputtemp)
       # Set temp value
       con_bd = sqlite3.connect('temp.db')
       cursor_temp = con_bd.cursor()
