@@ -2,13 +2,16 @@
 <html>
 <title>RaspiTemp</title>
 <meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
 <!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -86,21 +89,80 @@
                 <input type="submit" value="Guardar" class="waves-effect waves-light btn-large button"> </input>
                 <input type='hidden' name="estado" value="off">
               </form>
+              <br>
+              <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">PROGRAMAR</button>
 
-
-              <!--############### -->
-
-
-              <!--#############-->
             </div>
           </div>
         </div>
-
-        <br>
       </center>
     </div>
 
+<!--modal-->
+    <div id="id01" class="w3-modal">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+          <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
+<div class="dia">
+<label for="lunes" class="titleDia">Lunes</label>
+<div class="switch">
+  <label style="color:grey;">
+    <input style="textalign:left !important;" name="estado_lunes" type="checkbox" {{ checked }}>
+    <span class="lever"></span>
+    Activado
+  </label>
+  <br>
+</div>
+<input type="text" name="lunes" id="lunes" class="inputdia" value="10:00 - 20:00"/>
+<div id="slider-lunes"></div><br>
+</div>
+
+<div class="dia">
+<label for="martes" class="titleDia">Martes</label>
+<input type="text" name="martes" id="martes" class="inputdia" value="10:00 - 20:00"/>
+<div id="slider-martes"></div><br>
+</div>
+
+<div class="dia">
+<label for="miercoles" class="titleDia">Miercoles</label>
+<input type="text" name="miercoles" id="miercoles" class="inputdia" value="10:00 - 20:00"/>
+<div id="slider-miercoles"></div><br>
+</div>
+
+<div class="dia">
+<label for="jueves" class="titleDia">Jueves</label>
+<input type="text" name="jueves" id="jueves" class="inputdia" value="10:00 - 20:00"/>
+<div id="slider-jueves"></div><br>
+</div>
+
+<div class="dia">
+<label for="viernes" class="titleDia">Viernes</label>
+<input type="text" name="viernes" id="viernes" class="inputdia" value="10:00 - 20:00"/>
+<div id="slider-viernes"></div><br>
+</div>
+
+<div class="dia">
+<label for="sabado" class="titleDia">Sabado</label>
+<input type="text" name="sabado" id="sabado" class="inputdia" value="10:00 - 20:00"/>
+<div id="slider-sabado"></div><br>
+
+</div>
+
+<div class="dia">
+<label for="domingo" class="titleDia">Domingo</label>
+<input type="text" name="domingo" id="domingo" class="inputdia" value="10:00 - 20:00"/>
+<div id="slider-domingo"></div><br>
+</div>
+<br>
+<center>
+<input type="submit" value="GUARDAR" class="w3-button w3-black"> </input>
+        </div>
+      </div>
+    </div>
+  </div>
+</center>
+<!--modal-->
 
     <div class="w3-display-bottomleft w3-padding-large">
     </div>
@@ -111,5 +173,6 @@
     document.getElementById('textInput').value = val;
   }
 </script>
+<script src="/static/rangeslide.js"></script>
 
 </html>
