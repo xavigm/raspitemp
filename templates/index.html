@@ -61,8 +61,8 @@
           <div class="col s12 m5">
             <div class="card-panel teal" style="background-color:#1398f7 !important;">
               <span class="white-text">Temperatura guardada</span>
-              <form action="input" method="post">
-                <input type="number" name="inputtemp" class="number" placeholder={{ temp }}></input><br>
+              <form action="input" method="POST">
+                <input type="number" name="inputtemp" class="number" placeholder={{ temp }} required></input><br>
                 <!-- Switch -->
                 <p class="w3-large w3-center">INTERRUPTOR GENERAL</p>
                 <div class="switch">
@@ -72,8 +72,11 @@
                     <span class="lever"></span>
                     On
                   </label>
+
                 </div>
                 <input type="submit" value="Guardar" class="waves-effect waves-light btn-large button"> </input>
+                <input type='hidden' name="estado" value="off">
+
               </form>
               </span>
             </div>
