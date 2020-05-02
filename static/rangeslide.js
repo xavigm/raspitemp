@@ -22,7 +22,7 @@ jQuery(function() {
 
             if(minutes2 == 0) minutes2 = '00';
 
-            jQuery('#lunes').val(hours1+':'+minutes1+' - '+hours2+':'+minutes2 );
+            jQuery('#0').val(hours1+':'+minutes1+'-'+hours2+':'+minutes2 );
         }
     });
 });
@@ -51,7 +51,7 @@ jQuery(function() {
 
             if(minutes2 == 0) minutes2 = '00';
 
-            jQuery('#martes').val(hours1+':'+minutes1+' - '+hours2+':'+minutes2 );
+            jQuery('#1').val(hours1+':'+minutes1+'-'+hours2+':'+minutes2 );
         }
     });
 });
@@ -80,7 +80,7 @@ jQuery(function() {
 
             if(minutes2 == 0) minutes2 = '00';
 
-            jQuery('#miercoles').val(hours1+':'+minutes1+' - '+hours2+':'+minutes2 );
+            jQuery('#2').val(hours1+':'+minutes1+'-'+hours2+':'+minutes2 );
         }
     });
 });
@@ -109,7 +109,7 @@ jQuery(function() {
 
             if(minutes2 == 0) minutes2 = '00';
 
-            jQuery('#jueves').val(hours1+':'+minutes1+' - '+hours2+':'+minutes2 );
+            jQuery('#3').val(hours1+':'+minutes1+'-'+hours2+':'+minutes2 );
         }
     });
 });
@@ -138,7 +138,7 @@ jQuery(function() {
 
             if(minutes2 == 0) minutes2 = '00';
 
-            jQuery('#viernes').val(hours1+':'+minutes1+' - '+hours2+':'+minutes2 );
+            jQuery('#4').val(hours1+':'+minutes1+'-'+hours2+':'+minutes2 );
         }
     });
 });
@@ -167,7 +167,7 @@ jQuery(function() {
 
             if(minutes2 == 0) minutes2 = '00';
 
-            jQuery('#sabado').val(hours1+':'+minutes1+' - '+hours2+':'+minutes2 );
+            jQuery('#5').val(hours1+':'+minutes1+'-'+hours2+':'+minutes2 );
         }
     });
 });
@@ -196,7 +196,7 @@ jQuery(function() {
 
             if(minutes2 == 0) minutes2 = '00';
 
-            jQuery('#domingo').val(hours1+':'+minutes1+' - '+hours2+':'+minutes2 );
+            jQuery('#6').val(hours1+':'+minutes1+'-'+hours2+':'+minutes2 );
         }
     });
 });
