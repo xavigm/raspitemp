@@ -14,6 +14,8 @@ import RPi.GPIO as GPIO
 import time
 import threading
 from waitress import serve
+from copy import deepcopy
+
 
 # GPIO DEL RELE O LED
 led = 16
@@ -112,6 +114,24 @@ app = Flask(__name__, static_url_path='/static')
 @app.route("/")
 def hello():
 
+    #obtener datos programacion diaria
+    horario = {}
+    con_bd = sqlite3.connect('temp.db')
+    cursor_temp = con_bd.cursor()
+    for i in range(7):
+      cursor_temp.execute("SELECT * FROM dias WHERE dia=?",str(i))
+      registro = cursor_temp.fetchone()
+      print(registro)
+      horario["starth"+str(i)] = registro[1] 
+      horario["startm"+str(i)] = registro[2] 
+      horario["endh"+str(i)] = registro[3] 
+      horario["endm"+str(i)] = registro[4] 
+      horario["activo"+str(i)] = registro[5] 
+
+    cursor_temp.close()
+    print(horario["starth2"])
+
+
     # obtenemos valor calefaccion guardado
     con_bd = sqlite3.connect('temp.db')
     cursor_temp = con_bd.cursor()
@@ -151,6 +171,7 @@ def hello():
 
     now = datetime.datetime.now()
     timeString = now.strftime("%Y-%m-%d %H:%M")
+    #ENVIAR DATOS A TEMPLATE
     templateData = {
         'title': 'Raspitemp',
         'time': timeString,
@@ -158,7 +179,8 @@ def hello():
         'temp': temp,
         'checked': checked,
         'color': color,
-        'estado': estado
+        'estado': estado,
+        'lunes' : str(horario["starth0"])+':'+str(horario["startm0"])+"-"+str(horario["endh0"])+':'+str(horario["endm0"])
     }
 
     return render_template('index.html', **templateData)

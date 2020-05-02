@@ -4,7 +4,7 @@ jQuery(function() {
         min: 0,
         max: 1440,
         step: 15,
-        values: [ 600, 1200 ],
+        values: [ 100, 1200 ],
         slide: function( event, ui ) {
             var hours1 = Math.floor(ui.values[0] / 60);
             var minutes1 = ui.values[0] - (hours1 * 60);
