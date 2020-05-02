@@ -14,7 +14,6 @@ import RPi.GPIO as GPIO
 import time
 import threading
 from waitress import serve
-from copy import deepcopy
 
 
 # GPIO DEL RELE O LED
@@ -31,21 +30,39 @@ humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(led, GPIO.OUT)
 
-#def timeActivate():
-#   start_time = int(start_hour)*60 + int(start_minute)
-#   end_time = int(end_hour)*60 + int(end_minute)
-#   current_time =  datetime.now().hour*60 +datetime.now().minute
-#   if start_time <= current_time and end_time >= current_time:
-#      global estado_time = "on"
-#   else:
-#      global estado_time = "off"
+
+def timeActivate():
+
+   # obtener datos programacion diaria de la bbdd
+   dia = datetime.datetime.today().weekday()
+   con_bd = sqlite3.connect('temp.db')
+   cursor_temp = con_bd.cursor()
+   cursor_temp.execute("SELECT * FROM dias WHERE dia=?", str(dia))
+   registro = cursor_temp.fetchone()
+   starth = registro[1] 
+   startm = registro[2] 
+   endh = registro[3] 
+   endm = registro[4] 
+   cursor_temp.close()
+   #comparar con dia y hora actual
+   start_time = int(starth)*60 + int(startm)
+   end_time = int(endh)*60 + int(endm)
+   current_time =  datetime.datetime.now().hour*60 +datetime.datetime.now().minute
+   if start_time <= current_time and end_time >= current_time:
+      estado_time = "on"
+   else:
+      estado_time = "off"
+
+   return estado_time
 
 def background():
 
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
     temperature_now = temperature
-
+    
     while True:
+
+        estado_time = timeActivate()
 
         # obtenemos valor temperatura guardado
         con_bd = sqlite3.connect('temp.db')
@@ -79,12 +96,19 @@ def background():
         print(temp)
         print("Estado general:")
         print(estado_general)
-        # comparamos temperaturas y si el boton general esta activado
+        print("ESTADO PROGRAMACION:")
+        print(estado_time)
+        # comparamos temperaturas,si el boton general esta activado y si esta programado.
         if int(temperature_now) < int(temp):
             if estado_general == "on":
-                GPIO.output(led, GPIO.HIGH)
-                print("enciendo rele")
-                calefaccion = "on"
+               if estado_time == "on":
+                  GPIO.output(led, GPIO.HIGH)
+                  print("enciendo rele")
+                  calefaccion = "on"
+               else:
+                  GPIO.output(led, GPIO.LOW)
+                  print("apago rele")
+                  calefaccion = "off"   
             else:
                 GPIO.output(led, GPIO.LOW)
                 print("apago rele")
@@ -114,14 +138,13 @@ app = Flask(__name__, static_url_path='/static')
 @app.route("/")
 def hello():
 
-    #obtener datos programacion diaria
+    # obtener datos programacion diaria
     horario = {}
     con_bd = sqlite3.connect('temp.db')
     cursor_temp = con_bd.cursor()
     for i in range(7):
       cursor_temp.execute("SELECT * FROM dias WHERE dia=?",str(i))
       registro = cursor_temp.fetchone()
-      print(registro)
       horario["starth"+str(i)] = registro[1] 
       horario["startm"+str(i)] = registro[2] 
       horario["endh"+str(i)] = registro[3] 
@@ -129,7 +152,6 @@ def hello():
       horario["activo"+str(i)] = registro[5] 
 
     cursor_temp.close()
-    print(horario["starth2"])
 
 
     # obtenemos valor calefaccion guardado
@@ -171,7 +193,7 @@ def hello():
 
     now = datetime.datetime.now()
     timeString = now.strftime("%Y-%m-%d %H:%M")
-    #ENVIAR DATOS A TEMPLATE
+    # ENVIAR DATOS A TEMPLATE
     templateData = {
         'title': 'Raspitemp',
         'time': timeString,
@@ -180,7 +202,13 @@ def hello():
         'checked': checked,
         'color': color,
         'estado': estado,
-        'lunes' : str(horario["starth0"])+':'+str(horario["startm0"])+"-"+str(horario["endh0"])+':'+str(horario["endm0"])
+        'lunes' : str(horario["starth0"])+':'+str(horario["startm0"])+"-"+str(horario["endh0"])+':'+str(horario["endm0"]),
+        'martes' : str(horario["starth1"])+':'+str(horario["startm1"])+"-"+str(horario["endh1"])+':'+str(horario["endm1"]),
+        'miercoles' : str(horario["starth2"])+':'+str(horario["startm2"])+"-"+str(horario["endh2"])+':'+str(horario["endm2"]),
+        'jueves' : str(horario["starth3"])+':'+str(horario["startm3"])+"-"+str(horario["endh3"])+':'+str(horario["endm3"]),
+        'viernes' : str(horario["starth4"])+':'+str(horario["startm4"])+"-"+str(horario["endh4"])+':'+str(horario["endm4"]),
+        'sabado' : str(horario["starth5"])+':'+str(horario["startm5"])+"-"+str(horario["endh5"])+':'+str(horario["endm5"]),
+        'domingo' : str(horario["starth6"])+':'+str(horario["startm6"])+"-"+str(horario["endh6"])+':'+str(horario["endm6"])
     }
 
     return render_template('index.html', **templateData)
@@ -251,8 +279,7 @@ def diainput():
 
 
 
-# if __name__ == "__main__":
-#    app.run(host='0.0.0.0', port=80, debug=True)
+
 
 if __name__ == "__main__":
    # app.run() ##Replaced with below code to run it using waitress
