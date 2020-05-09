@@ -4,6 +4,17 @@ import sqlite3
 import RPi.GPIO as GPIO
 import time
 
+led = 16
+
+def querySQL(query):
+    con_bd = sqlite3.connect('temp.db')
+    cursor_temp = con_bd.cursor()
+    cursor_temp.execute(query)
+    registro = cursor_temp.fetchone()
+    output = (registro[0])
+    cursor_temp.close()
+    return output
+
 
 def setConfig():
     # GPIO DEL RELE O LED
@@ -44,12 +55,10 @@ def timeActivate():
 
 
 def enciendeLed():
-    led = 16
     GPIO.output(led, GPIO.HIGH)
 
 
 def apagaLed():
-    led = 16
     GPIO.output(led, GPIO.LOW)
 
 
@@ -60,25 +69,16 @@ def background():
 
     while True:
 
+        # obtenemos si se debe activar segun programacion
         estado_time = timeActivate()
 
         # obtenemos valor temperatura guardado
-        con_bd = sqlite3.connect('temp.db')
-        cursor_temp = con_bd.cursor()
-        cursor_temp.execute("SELECT * FROM temp")
-        registro = cursor_temp.fetchone()
-        temp = (registro[0])
-        cursor_temp.close()
+        temp = querySQL("SELECT * FROM temp")
 
         # obtenemos valor estado guardado
-        con_bd = sqlite3.connect('temp.db')
-        cursor_estado = con_bd.cursor()
-        cursor_estado.execute("SELECT * FROM estado")
-        registro = cursor_estado.fetchone()
-        estado_general = (registro[0])
-        cursor_temp.close()
+        estado_general = querySQL("SELECT * FROM estado")
 
-        # obtenemos valor actual del sensor
+        # obtenemos valor actual del sensor y lo descartamos si ha cambiado mas de 5 grados
         temperature = setConfig()
         temperature_back = temperature_now
         temperature_now = temperature
@@ -89,34 +89,24 @@ def background():
         if int(temperature) < min:
             temperature_now = temperature_back
 
-        # debug
-        #print("Temperatura actual:")
-        # print(temperature_now)
-        #print("Temperatura bbdd:")
-        # print(temp)
-        #print("Estado general:")
-        # print(estado_general)
-        #print("Estado programacion:")
-        # print(estado_time)
-
         # comparamos temperaturas,si el boton general esta activado y si esta programado.
         if int(temperature_now) < int(temp):
             if estado_general == "on":
                 if estado_time == "on":
-                    enciendeLed()
-                    print("enciendo rele")
+                    if GPIO.input(led) == 0:
+                        enciendeLed()
                     calefaccion = "on"
                 else:
-                    apagaLed()
-                    print("apago rele")
+                    if GPIO.input(led):
+                        apagaLed()
                     calefaccion = "off"
             else:
-                apagaLed()
-                print("apago rele")
+                if GPIO.input(led):
+                    apagaLed()
                 calefaccion = "off"
         else:
-            apagaLed()
-            print("apago rele")
+            if GPIO.input(led):
+                apagaLed()
             calefaccion = "off"
 
         # Set calefaccion value

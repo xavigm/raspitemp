@@ -32,16 +32,10 @@ def hello():
         horario["endh"+str(i)] = registro[3]
         horario["endm"+str(i)] = registro[4]
         horario["activo"+str(i)] = registro[5]
-
     cursor_temp.close()
 
     # obtenemos valor calefaccion guardado
-    con_bd = sqlite3.connect('temp.db')
-    cursor_temp = con_bd.cursor()
-    cursor_temp.execute("SELECT * FROM calefaccion")
-    registro = cursor_temp.fetchone()
-    calefaccion = (registro[0])
-    cursor_temp.close()
+    calefaccion = functions.querySQL("SELECT * FROM calefaccion")
 
     if calefaccion == "on":
         estado = "Encendido"
@@ -51,12 +45,7 @@ def hello():
         estado = "Apagado"
 
     # Set initial estado value
-    con_bd = sqlite3.connect('temp.db')
-    cursor_temp = con_bd.cursor()
-    cursor_temp.execute("SELECT * FROM estado")
-    registro1 = cursor_temp.fetchone()
-    estado_general = (registro1[0])
-    cursor_temp.close()
+    estado_general = functions.querySQL("SELECT * FROM estado")
 
     if estado_general == "on":
         checked = "checked"
@@ -64,13 +53,8 @@ def hello():
         checked = ""
 
     # Set initial temp value
-    con_bd = sqlite3.connect('temp.db')
-    cursor_temp = con_bd.cursor()
-    cursor_temp.execute("SELECT * FROM temp")
-    # for registro in cursor_temp:
-    registro = cursor_temp.fetchone()
-    temp = (registro[0])
-    cursor_temp.close()
+    temp = functions.querySQL("SELECT * FROM temp")
+
 
     now = datetime.datetime.now()
     timeString = now.strftime("%Y-%m-%d %H:%M")
