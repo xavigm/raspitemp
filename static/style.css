@@ -1,10 +1,24 @@
-body {
-background: black;
-      }
+
+  body,
+  h1 {
+    font-family: "Raleway", sans-serif
+  }
+
+  body,
+  html {
+    height: 100%
+  }
+
+  .bgimg {
+    background-image: url('/static/bg.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+
 .button {
-color:white;
 font-size: 18px;
-background-color: #bbbbbb !important;
+background-color:whitesmoke !important;
 }
 
 .number {
@@ -15,7 +29,17 @@ text-align: center;
 
 .logo {
 width:90%;
-margin-top:80px;
+}
+
+.w3-button{
+    width:300px;
+}
+.card-panel {
+    text-align: center;
+}
+
+.switch{
+    padding: 20px;
 }
 
 .switch label input[type=checkbox]:checked+.lever:after {

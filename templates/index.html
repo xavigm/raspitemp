@@ -17,152 +17,142 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="/static/style.css">
-<style>
-  body,
-  h1 {
-    font-family: "Raleway", sans-serif
-  }
 
-  body,
-  html {
-    height: 100%
-  }
-
-  .bgimg {
-    background-image: url('https://media.idownloadblog.com/wp-content/uploads/2019/05/Glacier_Falls_-_MacBook_Pro_Wallpaper.jpg');
-    min-height: 100%;
-    background-position: center;
-    background-size: cover;
-  }
-</style>
-
-<body>
-  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-    <div class="w3-display-topleft w3-padding-large w3-xlarge">
-      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licencia Creative Commons" style="border-width:0;width:60%" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+<body class="bgimg">
 
 
-    </div>
-    <div class="w3-display-middle">
-      <center>
-        <hr>
-        <h1 class="w3-jumbo w3-animate-top"> </h1>
-        <img src="/static/smarttemp.png" class="logo" style="width:350px">
-
-        <p>{{ time }}</p>
-
-        <div class="row">
-          <div class="col s12 m5">
-            <div class="card-panel teal" style="background-color:{{ color }} !important;>
+  <div class="container" style="text-align: center;">
+    <img src="/static/smarttemp.png" class="logo" style="width:350px">
+    <p style="color:white;">{{ time }}</p>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6 l4 offset-l2">
+        <div class="card-panel teal" style="background-color:{{ color }} !important;>
               <span class=" white-text">Estado actual</span>
-              <span class="white-text" style="font-size:24px;">{{ estado }}
-              </span>
-            </div>
-          </div>
-          <div class="col s12 m5">
-            <div class="card-panel teal" style="background-color:#1398f7 !important;">
-              <span class="white-text">Temperatura actual</span>
-              <span class="white-text" style="font-size:32px;">{{ temp_actual  }}
-              </span>
-            </div>
-          </div>
-          <div class="col s12 m5">
-            <div class="card-panel teal" style="background-color:#1398f7 !important;">
-              <span class="white-text">Temperatura guardada</span>
-              <form action="input" method="POST">
-                <input type="number" class="number" placeholder={{ temp }} id="textInput" disabled></input><br>
-                <label for="vol" style="color:white;">Nueva Temperatura</label>
-                <!-- range-->
-                <input type="range" value={{ temp }} name="inputtemp" min="10" max="30"
-                  onchange="updateTextInput(this.value);">
-                <!-- Switch -->
-                <p class="w3-large w3-center">INTERRUPTOR GENERAL</p>
-                <div class="switch">
-                  <label style="color:white;">
-                    OFF
-                    <input name="estado" type="checkbox" {{ checked }}>
-                    <span class="lever"></span>
-                    ON
-                  </label>
-                  <br>
-                </div>
-                </span>
-                <hr>
-                <input type="submit" value="Guardar" class="waves-effect waves-light btn-large button"> </input>
-                <input type='hidden' name="estado" value="off">
-              </form>
-              <br>
-              <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">PROGRAMAR</button>
-            </div>
-          </div>
+          <span class="white-text" style="font-size:24px;">{{ estado }}
+          </span>
         </div>
-      </center>
-    </div>
-
-<!--modal-->
-<form action="dias" method="POST">
-    <div id="id01" class="w3-modal">
-      <div class="w3-modal-content">
-        <div class="w3-container">
-          <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-
-<div class="dia">
-<label for="0" class="titleDia">Lunes</label>
-<input type="text" name="0" id="0" class="inputdia" value={{ lunes }}>
-<div id="slider-lunes"></div><br>
-</div>
-
-<div class="dia">
-<label for="1" class="titleDia">Martes</label>
-<input type="text" name="1" id="1" class="inputdia" value={{ martes }} >
-<div id="slider-martes"></div><br>
-</div>
-
-<div class="dia">
-<label for="2" class="titleDia">Miercoles</label>
-<input type="text" name="2" id="2" class="inputdia" value={{ miercoles }} >
-<div id="slider-miercoles"></div><br>
-</div>
-
-<div class="dia">
-<label for="3" class="titleDia">Jueves</label>
-<input type="text" name="3" id="3" class="inputdia" value={{ jueves }} >
-<div id="slider-jueves"></div><br>
-</div>
-
-<div class="dia">
-<label for="4" class="titleDia">Viernes</label>
-<input type="text" name="4" id="4" class="inputdia" value={{ viernes }} >
-<div id="slider-viernes"></div><br>
-</div>
-
-<div class="dia">
-<label for="5" class="titleDia">Sabado</label>
-<input type="text" name="5" id="5" class="inputdia" value={{ sabado }} >
-<div id="slider-sabado"></div><br>
-
-</div>
-
-<div class="dia">
-<label for="6" class="titleDia">Domingo</label>
-<input type="text" name="6" id="6" class="inputdia" value={{ domingo }} />
-<div id="slider-domingo"></div><br>
-</div>
-<br>
-<center>
-<input type="submit" value="GUARDAR" class="w3-button w3-black"> </input>
+      </div>
+      <div class="col s12 m6 l4">
+        <div class="card-panel teal" style="background-color:#1398f7 !important;">
+          <span class="white-text">Temperatura actual</span>
+          <span class="white-text" style="font-size:32px;">{{ temp_actual  }}
+          </span>
         </div>
       </div>
     </div>
-  </div>
-</form>
-</center>
-<!--modal-->
+    <div class="row">
+      <form action="input" method="POST">
 
-    <div class="w3-display-bottomleft w3-padding-large">
+        <div class="col s12 m6 l4 offset-l2">
+          <div class="card-panel teal" style="background-color:#1398f7 !important;">
+            <span class="white-text">Temperatura guardada</span>
 
+            <input type="number" class="number" placeholder={{ temp }} id="textInput" disabled></input><br>
+            <label for="vol" style="color:white;">Nueva Temperatura</label>
+            <!-- range-->
+            <input type="range" value={{ temp }} name="inputtemp" min="10" max="30"
+              onchange="updateTextInput(this.value);">
+          </div>
+        </div>
+        <div class="col s12 m6 l4">
+          <div class="card-panel teal" style="background-color:#1398f7 !important;">
+            <!-- Switch -->
+            <span class="white-text">INTERRUPTOR GENERAL</span>
+            <div class="switch">
+              <label style="color:white;">
+                OFF
+                <input name="estado" type="checkbox" {{ checked }}>
+                <span class="lever"></span>
+                ON
+              </label>
+              <br>
+            </div>
+            </span>
+            <input type="submit" value="Guardar" class="waves-effect waves-light btn-large button"> </input>
+            <input type='hidden' name="estado" value="off">
+      </form>
     </div>
   </div>
+  </div>
+
+  <div class="row" style="text-align: center;">
+    <div class="col s12 m6 l4 offset-l4">
+      <button onclick="document.getElementById('id01').style.display='block'"
+        class="w3-button w3-black">PROGRAMAR</button>
+    </div>
+  </div>
+
+
+  </div>
+  </div>
+
+  <!--modal-->
+  <form action="dias" method="POST">
+    <div id="id01" class="w3-modal">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+          <span onclick="document.getElementById('id01').style.display='none'"
+            class="w3-button w3-display-topright">&times;</span>
+
+          <div class="dia">
+            <label for="0" class="titleDia">Lunes</label>
+            <input type="text" name="0" id="0" class="inputdia" value={{ lunes }}>
+            <div id="slider-lunes"></div><br>
+          </div>
+
+          <div class="dia">
+            <label for="1" class="titleDia">Martes</label>
+            <input type="text" name="1" id="1" class="inputdia" value={{ martes }}>
+            <div id="slider-martes"></div><br>
+          </div>
+
+          <div class="dia">
+            <label for="2" class="titleDia">Miercoles</label>
+            <input type="text" name="2" id="2" class="inputdia" value={{ miercoles }}>
+            <div id="slider-miercoles"></div><br>
+          </div>
+
+          <div class="dia">
+            <label for="3" class="titleDia">Jueves</label>
+            <input type="text" name="3" id="3" class="inputdia" value={{ jueves }}>
+            <div id="slider-jueves"></div><br>
+          </div>
+
+          <div class="dia">
+            <label for="4" class="titleDia">Viernes</label>
+            <input type="text" name="4" id="4" class="inputdia" value={{ viernes }}>
+            <div id="slider-viernes"></div><br>
+          </div>
+
+          <div class="dia">
+            <label for="5" class="titleDia">Sabado</label>
+            <input type="text" name="5" id="5" class="inputdia" value={{ sabado }}>
+            <div id="slider-sabado"></div><br>
+
+          </div>
+
+          <div class="dia">
+            <label for="6" class="titleDia">Domingo</label>
+            <input type="text" name="6" id="6" class="inputdia" value={{ domingo }} />
+            <div id="slider-domingo"></div><br>
+          </div>
+          <br>
+          <center>
+            <input type="submit" value="GUARDAR" class="w3-button w3-black"> </input>
+        </div>
+      </div>
+    </div>
+    </div>
+  </form>
+  </center>
+  <!--modal-->
+
+  <div class="w3-display-bottomleft w3-padding-large">
+
+  </div>
+
 </body>
 <script>
   function updateTextInput(val) {
