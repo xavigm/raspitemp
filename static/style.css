@@ -38,6 +38,17 @@ width:90%;
     text-align: center;
 }
 
+.chartContainer {
+    height: 400px; 
+    width: 100%;
+    display:block;
+}
+
+.canvasjs-chart-canvas{
+    width:100% !important;
+
+}
+
 .switch{
     padding: 20px;
 }
