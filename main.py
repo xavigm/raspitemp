@@ -12,7 +12,6 @@ import time
 import threading
 from waitress import serve
 import functions
-import simplejson as json
 
 
 temperature = functions.setConfig()
@@ -38,8 +37,6 @@ def hello():
 
     #obtenemos historico
     history = functions.getHistory()
-    print("history:")
-    print(history)
 
     # obtenemos valor calefaccion guardado
     calefaccion = functions.querySQL("SELECT * FROM calefaccion")

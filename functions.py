@@ -3,7 +3,6 @@ import Adafruit_DHT
 import sqlite3
 import RPi.GPIO as GPIO
 import time
-import simplejson as json
 from flask import Markup
 
 
@@ -38,7 +37,6 @@ def getHistory():
     cursor_temp = con_bd.cursor()
     cursor_temp.execute("SELECT * from history")
     registro = cursor_temp.fetchall()
-    print("Total historico:  ", len(registro))
     count = 0
     for row in registro:
         history["date"+str(count)] = row[0]
@@ -99,6 +97,7 @@ def background():
 
     temperature = setConfig()
     temperature_now = temperature
+    count = 0
 
     while True:
 
@@ -150,8 +149,9 @@ def background():
         cursor_temp.close()
 
         #insertamos valor para historico
-        now  = time.ctime()
-        insertHistory(now,temperature_now)
-
+        if count % 5:
+            now  = time.ctime()
+            insertHistory(now,temperature_now)
+        count = count+1
 
         time.sleep(20)
