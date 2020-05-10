@@ -12,6 +12,8 @@ import time
 import threading
 from waitress import serve
 import functions
+import simplejson as json
+
 
 temperature = functions.setConfig()
 
@@ -33,6 +35,11 @@ def hello():
         horario["endm"+str(i)] = registro[4]
         horario["activo"+str(i)] = registro[5]
     cursor_temp.close()
+
+    #obtenemos historico
+    history = functions.getHistory()
+    print("history:")
+    print(history)
 
     # obtenemos valor calefaccion guardado
     calefaccion = functions.querySQL("SELECT * FROM calefaccion")
@@ -73,7 +80,8 @@ def hello():
         'jueves': str(horario["starth3"])+':'+str(horario["startm3"])+"-"+str(horario["endh3"])+':'+str(horario["endm3"]),
         'viernes': str(horario["starth4"])+':'+str(horario["startm4"])+"-"+str(horario["endh4"])+':'+str(horario["endm4"]),
         'sabado': str(horario["starth5"])+':'+str(horario["startm5"])+"-"+str(horario["endh5"])+':'+str(horario["endm5"]),
-        'domingo': str(horario["starth6"])+':'+str(horario["startm6"])+"-"+str(horario["endh6"])+':'+str(horario["endm6"])
+        'domingo': str(horario["starth6"])+':'+str(horario["startm6"])+"-"+str(horario["endh6"])+':'+str(horario["endm6"]),
+        'history': history
     }
 
     return render_template('index.html', **templateData)

@@ -3,6 +3,10 @@ import Adafruit_DHT
 import sqlite3
 import RPi.GPIO as GPIO
 import time
+import simplejson as json
+from flask import Markup
+
+
 
 led = 16
 
@@ -14,6 +18,35 @@ def querySQL(query):
     output = (registro[0])
     cursor_temp.close()
     return output
+
+def insertHistory(now,temperature_now):
+    con_bd = sqlite3.connect('temp.db')
+    cursor_temp = con_bd.cursor()
+    cursor_temp.execute("INSERT INTO history(date,temp) VALUES (?,?)", (now,temperature_now))
+    con_bd.commit()
+    cursor_temp.execute("SELECT * from history")
+    registro = cursor_temp.fetchall()
+    if len(registro) >= 10:
+        cursor_temp.execute("DELETE FROM history WHERE date IN (SELECT date FROM history ORDER BY date ASC LIMIT 1)")
+        con_bd.commit()
+    cursor_temp.close()
+    
+
+def getHistory():
+    history = {}
+    con_bd = sqlite3.connect('temp.db')
+    cursor_temp = con_bd.cursor()
+    cursor_temp.execute("SELECT * from history")
+    registro = cursor_temp.fetchall()
+    print("Total historico:  ", len(registro))
+    count = 0
+    for row in registro:
+        history["date"+str(count)] = row[0]
+        history["temp"+str(count)] = row[1]
+        count = count+1
+    cursor_temp.close()    
+    history = Markup(history)
+    return history
 
 
 def setConfig():
@@ -115,5 +148,10 @@ def background():
         cursor_temp.execute("UPDATE calefaccion SET actual=?", (calefaccion,))
         con_bd.commit()
         cursor_temp.close()
+
+        #insertamos valor para historico
+        now  = time.ctime()
+        insertHistory(now,temperature_now)
+
 
         time.sleep(20)
