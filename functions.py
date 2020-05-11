@@ -4,10 +4,15 @@ import sqlite3
 import RPi.GPIO as GPIO
 import time
 from flask import Markup
-
+import schedule  
 
 
 led = 16
+
+
+
+
+
 
 def querySQL(query):
     con_bd = sqlite3.connect('temp.db')
@@ -18,7 +23,10 @@ def querySQL(query):
     cursor_temp.close()
     return output
 
-def insertHistory(now,temperature_now):
+def insertHistory():
+    now  = time.ctime()
+    temperature_now = setConfig()
+
     con_bd = sqlite3.connect('temp.db')
     cursor_temp = con_bd.cursor()
     cursor_temp.execute("INSERT INTO history(date,temp) VALUES (?,?)", (now,temperature_now))
@@ -97,9 +105,11 @@ def background():
 
     temperature = setConfig()
     temperature_now = temperature
-    count = 0
 
     while True:
+
+        #ejecutamos insertHistory si procede
+        schedule.run_pending()
 
         # obtenemos si se debe activar segun programacion
         estado_time = timeActivate()
@@ -148,10 +158,8 @@ def background():
         con_bd.commit()
         cursor_temp.close()
 
-        #insertamos valor para historico
-        if count % 5:
-            now  = time.ctime()
-            insertHistory(now,temperature_now)
-        count = count+1
 
         time.sleep(20)
+
+schedule.every(300).seconds.do(insertHistory)  
+
