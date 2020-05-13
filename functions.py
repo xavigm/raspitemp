@@ -6,9 +6,7 @@ import time
 from flask import Markup
 import schedule  
 
-
 led = 16
-
 
 def querySQL(query):
     con_bd = sqlite3.connect('temp.db')
@@ -21,6 +19,7 @@ def querySQL(query):
         output = "null"    
     cursor_temp.close()
     return output
+
 
 def login(username,password):
     query = "SELECT password FROM users WHERE username = '"+str(username)+"'"

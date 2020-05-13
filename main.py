@@ -18,8 +18,6 @@ temperature = functions.setConfig()
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = '4534654756345'
 
-
-
 @app.route('/login', methods=['GET','POST'])
 def login():
 
@@ -51,7 +49,7 @@ def login():
 def logout():
     session['loginFlag'] = False
     return redirect('/')
-    
+
 @app.route("/")
 def hello():
  
@@ -126,7 +124,6 @@ def hello():
 
         return render_template('index.html', **templateData)
 
-
 @app.route('/input', methods=['POST'])
 def input():
 
@@ -165,7 +162,6 @@ def input():
 
     return redirect('/')
 
-
 @app.route('/dias', methods=['POST'])
 def diainput():
     con_bd = sqlite3.connect('temp.db')
@@ -183,7 +179,6 @@ def diainput():
     cursor_temp.close()
 
     return redirect('/')
-
 
 # arrancamos el bucle
 # thread.start_new_thread(background, ());
