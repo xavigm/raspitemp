@@ -18,43 +18,51 @@ temperature = functions.setConfig()
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = '4534654756345'
 
-@app.route('/')
-def init():
-
-    session['loginFlag'] = False
-    return render_template('login.html')
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
 
-    user = request.form['username']
-    password = request.form['password']
-
-    result = functions.login(user, password)
+    if "username" in request.form:
+        user = request.form['username']
+        password = request.form['password']
+        result = functions.login(user, password)
+        empty = False
+    else:
+        result = False
+        empty = True    
 
     if result == True:
         session['loginFlag'] = True
-        return redirect('/web')
+        return redirect('/')
 
     else:
+        if empty == 1:
+            message = ""
+        else:
+            message = "Login incorrect"    
         templateData = {
-            'error': 'FALSE',
+            'error': message,
         }
         session['loginFlag'] = False
         return render_template('login.html', **templateData)
 
-
-@app.route("/web")
+@app.route('/logout', methods=['GET'])
+def logout():
+    session['loginFlag'] = False
+    return redirect('/')
+    
+@app.route("/")
 def hello():
  
     try:
         session['loginFlag']
     except:
-        return redirect('/')
+        return render_template('login.html')
+
 
     if session['loginFlag'] == False:
-        return redirect('/')
+        return redirect('/login')
     else:
 
         # obtener datos programacion diaria

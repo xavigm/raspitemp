@@ -3,7 +3,7 @@
 <title>RaspiTemp</title>
 <meta charset="UTF-8">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -21,6 +21,10 @@
 
 <body class="bgimg">
 
+  <form action="logout" method="GET">
+    <button type="submit" style="background:rgba(0, 0, 0, 0); border:0px"><i class="fa fa-sign-out"
+        style="font-size:48px;color:red"></i></button>
+  </form>
 
   <div class="container" style="text-align: center;">
     <img src="/static/smarttemp.png" class="logo" style="width:350px">
@@ -180,7 +184,7 @@
 </script>
 <script src="/static/rangeslide.js"></script>
 <script>
-var historico = "{{ history }}";
+  var historico = "{{ history }}";
 </script>
 <script src="/static/chart.js"></script>
 
