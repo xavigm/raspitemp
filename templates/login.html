@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <title>XG smarttemp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="bgimg">
+    <div class="container" style="text-align: center;">
+        <img src="/static/smarttemp.png" class="logo" style="width:350px">
+        <p style="color:white;">{{ time }}</p>
+    </div>
+    <div class="container">
+        <div class="row" >
+            <div class="col s10 m12 l9 offset-l2 offset-s1" style="background: rgba(0,0,0,0.5);">
+                <div style="padding:10%">
+                <h2 style="color:white;margin:auto;text-align: center;">Login</h2>
+                <br>
+                <form action="login" method="post">
+                    <input type="text" placeholder="Usuario" name="username" value="{{
+          request.form.username }}" style=color:white;>
+                    <input type="password" placeholder="Contraseña" name="password" value="{{
+          request.form.password }}" style=color:white;>
+                    <input class="btn btn-default" type="submit" value="Login">
+                </form>
+                {% if error %}
+                <p class="error"><strong>Error:</strong> {{ error }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

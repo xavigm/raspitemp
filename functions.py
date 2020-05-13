@@ -10,18 +10,26 @@ import schedule
 led = 16
 
 
-
-
-
-
 def querySQL(query):
     con_bd = sqlite3.connect('temp.db')
     cursor_temp = con_bd.cursor()
     cursor_temp.execute(query)
     registro = cursor_temp.fetchone()
-    output = (registro[0])
+    if registro is not None:
+        output = (registro[0])
+    else:
+        output = "null"    
     cursor_temp.close()
     return output
+
+def login(username,password):
+    query = "SELECT password FROM users WHERE username = '"+str(username)+"'"
+    consulta = querySQL(query)
+    if consulta == password:
+        return True
+    else:
+        return False
+
 
 def insertHistory():
     now  = time.ctime()
