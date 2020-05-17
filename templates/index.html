@@ -96,6 +96,12 @@
     </div>
   </div>
 
+  <div class="row" style="text-align: center;">
+    <div class="col s12 m6 l4 offset-l4">
+      <button onclick="document.getElementById('id03').style.display='block';charts();"
+        class="w3-button w3-black">USUARIOS</button>
+    </div>
+  </div>
 
   </div>
   </div>
@@ -172,6 +178,33 @@
     </div>
   </div>
   <!--modal-estadisticas-->
+
+    <!--modal-usuarios-->
+    <div id="id03" class="w3-modal">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+          <span onclick="document.getElementById('id03').style.display='none'"
+            class="w3-button w3-display-topright">&times;</span>
+            <ul class="collapsible">
+              <li>
+                <div class="collapsible-header">
+                  <i class="material-icons">filter_drama</i>
+                  Usuario
+                  <span class="new badge">4</span></div>
+                <div class="collapsible-body"><button>Cambiar contraseña</button></div>
+              </li>
+              <li>
+                <div class="collapsible-header">
+                  <i class="material-icons">place</i>
+                  Otro usuario
+                  <span class="badge">1</span></div>
+                <div class="collapsible-body"><button>Cambiar contraseña</button></div>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </div>
+    <!--modal-usuarios-->
 
   <div class="w3-display-bottomleft w3-padding-large">
   </div>

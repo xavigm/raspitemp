@@ -41,7 +41,8 @@ def insertHistory():
     cursor_temp.execute("SELECT * from history")
     registro = cursor_temp.fetchall()
     if len(registro) >= 10:
-        cursor_temp.execute("DELETE FROM history WHERE date IN (SELECT date FROM history ORDER BY date ASC LIMIT 1)")
+        cursor_temp.execute("DELETE FROM history WHERE date IN (SELECT date FROM history ORDER BY datetime(date) ASC LIMIT 1)")
+        print("eliminado")
         con_bd.commit()
     cursor_temp.close()
     
@@ -168,5 +169,5 @@ def background():
 
         time.sleep(20)
 
-schedule.every(300).seconds.do(insertHistory)  
+schedule.every(600).seconds.do(insertHistory)  
 
