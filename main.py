@@ -101,6 +101,9 @@ def hello():
         # Set initial temp value
         temp = functions.querySQL("SELECT * FROM temp")
 
+        temperature = functions.setConfig()
+
+
         now = datetime.datetime.now()
         timeString = now.strftime("%Y-%m-%d %H:%M")
         # ENVIAR DATOS A TEMPLATE
