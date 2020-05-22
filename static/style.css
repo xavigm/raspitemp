@@ -17,7 +17,7 @@
   }
 
 .button {
-font-size: 18px;
+font-size: 13px;
 background-color:whitesmoke !important;
 }
 
@@ -27,8 +27,47 @@ color: white;
 text-align: center;
 }	
 
+.btn-large{
+
+height: 31px !important;
+line-height: 27px !important;
+font-size: 15px !important;
+padding: 0px 10px !important;
+
+}
+
 .logo {
-width:90%;
+width: 255px;
+}
+
+#card1{
+    background-color:#1398f7 !important;
+    height: 22vh;
+}
+
+#card2{
+    height: 36vh;
+    background-color:#1398f7 !important;
+
+}
+
+#menu_btn{
+font-size: 29px;
+color: white;
+padding: 15px;
+position: fixed;
+}
+
+#menu_item{
+background-color: dodgerblue;
+width: 170px;
+height: 80px;
+font-size: 20px;
+padding: 3px;
+}
+
+#menu_icon{
+font-size: 40px;
 }
 
 .w3-button{

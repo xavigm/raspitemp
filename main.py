@@ -122,7 +122,8 @@ def hello():
             'viernes': str(horario["starth4"])+':'+str(horario["startm4"])+"-"+str(horario["endh4"])+':'+str(horario["endm4"]),
             'sabado': str(horario["starth5"])+':'+str(horario["startm5"])+"-"+str(horario["endh5"])+':'+str(horario["endm5"]),
             'domingo': str(horario["starth6"])+':'+str(horario["startm6"])+"-"+str(horario["endh6"])+':'+str(horario["endm6"]),
-            'history': history
+            'history': history,
+            'user' : functions.getUser()
         }
 
         return render_template('index.html', **templateData)

@@ -62,6 +62,11 @@ def getHistory():
     history = Markup(history)
     return history
 
+def getUser():
+    user = querySQL("SELECT * from users")
+    return user
+        
+
 
 def setConfig():
     # GPIO DEL RELE O LED
